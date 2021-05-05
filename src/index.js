@@ -85,9 +85,7 @@ app.get('/collection/:collectionName/:id/image', imageMiddleware, (req, res, nex
         { _id: new ObjectID(req.params.id) },
         (e, result) => {
             if (e) return next(e)
-            fetch(result.image).then(function(response) {
-                
-            });
+            res.json({image: result.image});
         })
 })
 
