@@ -36,6 +36,9 @@ app.param('collectionName', (req, res, next, collectionName) =>{
 app.use(function(req, res, next) {
     console.log("logger: request path: " + req.path)
     console.log("logger: request method: " + req.method)
+    if (req.method == "POST") {
+        console.log("logger: request body: " + JSON.stringify(req.body))
+    }
     next();
   });
 
@@ -56,7 +59,9 @@ const imageMiddleware = (req, res, next) => {
 
 
 app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*"); // allow CORS
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "*");
+    res.header("Access-Control-Allow-Methods", "*"); // allow CORS
     next();
   });
 
