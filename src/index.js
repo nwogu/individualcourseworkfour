@@ -89,6 +89,15 @@ app.get('/collection/:collectionName/:id/image', imageMiddleware, (req, res, nex
         })
 })
 
+app.get('/refresh/:collectionName', (req, res, next) =>{
+    req.collection.deleteMany({});
+    const file = require('./lessons.js');
+    req.collection.insertMany(file.lessons);
+    return res.json({
+        'status': 'success'
+    });
+})
+
 app.get('/collection/:collectionName/:id', (req, res, next) =>{
     req.collection.findOne(
         { _id: new ObjectID(req.params.id) },
